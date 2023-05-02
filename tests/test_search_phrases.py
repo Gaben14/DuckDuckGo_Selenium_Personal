@@ -23,7 +23,10 @@ def test_basic_duckduckgo_search(browser):
     # THEN the search result links equals to "panda"
     assert PHRASE == result_page.search_input_value()
 
-    # THEN click on the first result
+    # AND click on the first result
     result_page.click_on_search_result()
+
+    # AND click on the More Results button
+    result_page.expand_more_result()
 
 
