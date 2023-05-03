@@ -24,9 +24,14 @@ def test_basic_duckduckgo_search(browser):
     assert PHRASE == result_page.search_input_value()
 
     # AND click on the first result
-    result_page.click_on_search_result()
+    # result_page.click_on_search_result()
+
+    # AND verify (assert) that the autocomplete results contain the phrase
+    # assert result_page.verify_autocomplete() == True
+    assert result_page.verify_autocomplete()
+
+    # AND select an autocomplete result
+    # result_page.select_autocomplete_selection()
 
     # AND click on the More Results button
-    result_page.expand_more_result()
-
-
+    # result_page.expand_more_result()
