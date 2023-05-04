@@ -7,6 +7,7 @@ import time
 import pytest
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from pages.img_page import DuckDuckGoImageResultPage
 
 
 class DuckDuckGoResultPage:
@@ -64,3 +65,8 @@ class DuckDuckGoResultPage:
         third_result = self.browser.find_element(By.CSS_SELECTOR, 'div[data-index="3"]').click()
         # Go back to the page
         self.browser.back()
+
+    def img_search(self):
+        img_result = DuckDuckGoImageResultPage(self.browser)
+        img_result.img_search_result()
+

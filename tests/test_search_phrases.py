@@ -35,3 +35,6 @@ def test_basic_duckduckgo_search(browser):
 
     # AND click on the More Results button
     # result_page.expand_more_result()
+
+    # AND click on the Image section
+    result_page.img_search()
