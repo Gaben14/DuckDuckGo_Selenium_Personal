@@ -8,6 +8,8 @@ import pytest
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from pages.img_page import DuckDuckGoImageResultPage
+from pages.vid_page import DuckDuckGoVideoResultPage
+from pages.news_page import DuckDuckGoNewsResultPage
 
 
 class DuckDuckGoResultPage:
@@ -70,3 +72,10 @@ class DuckDuckGoResultPage:
         img_result = DuckDuckGoImageResultPage(self.browser)
         img_result.img_search_result()
 
+    def vid_search(self):
+        vid_result = DuckDuckGoVideoResultPage(self.browser)
+        vid_result.vid_search_result()
+
+    def news_search(self):
+        news_result = DuckDuckGoNewsResultPage(self.browser)
+        news_result.news_search_result()

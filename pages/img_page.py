@@ -19,6 +19,7 @@ class DuckDuckGoImageResultPage:
     IMAGES_TAB = (By.CSS_SELECTOR, 'a[data-zci-link="images"]')
     IMAGE_4 = (By.CSS_SELECTOR, ':nth-child(4 of div.tile)')
     CLOSE_ICON = (By.CLASS_NAME, 'detail__close')
+
     # Initializer
     def __init__(self, browser: WebDriver):
         self.browser = browser
