@@ -1,3 +1,5 @@
+import time
+
 from pages.search_page import DuckDuckGoSearchPage
 from pages.result_page import DuckDuckGoResultPage
 import pytest
@@ -24,23 +26,27 @@ def test_basic_duckduckgo_search(browser):
     assert PHRASE == result_page.search_input_value()
 
     # AND click on the first result
-    # result_page.click_on_search_result()
+    result_page.click_on_search_result()
 
     # AND verify (assert) that the autocomplete results contain the phrase
-    # assert result_page.verify_autocomplete() == True
     assert result_page.verify_autocomplete()
 
     # AND select an autocomplete result
-    # result_page.select_autocomplete_selection()
+    result_page.select_autocomplete_selection()
 
     # AND click on the More Results button
     # result_page.expand_more_result()
 
     # AND click on the Image section
-    result_page.img_search()
+    # result_page.img_search()
 
     # AND click on the Video section
-    result_page.vid_search()
+    # result_page.vid_search()
 
     # AND click on the News section
-    result_page.news_search()
+    # result_page.news_search()
+
+    # AND click on the Settings
+    result_page.change_settings()
+
+    time.sleep(5)

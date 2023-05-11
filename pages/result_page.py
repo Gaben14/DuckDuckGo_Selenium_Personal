@@ -10,6 +10,7 @@ from selenium.webdriver.common.keys import Keys
 from pages.img_page import DuckDuckGoImageResultPage
 from pages.vid_page import DuckDuckGoVideoResultPage
 from pages.news_page import DuckDuckGoNewsResultPage
+from pages.change_settings import DuckDuckGoSettings
 
 
 class DuckDuckGoResultPage:
@@ -79,3 +80,7 @@ class DuckDuckGoResultPage:
     def news_search(self):
         news_result = DuckDuckGoNewsResultPage(self.browser)
         news_result.news_search_result()
+
+    def change_settings(self):
+        change_duck_settings = DuckDuckGoSettings(self.browser)
+        change_duck_settings.duck_settings("s", "b", "hu_HU")

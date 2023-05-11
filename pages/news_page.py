@@ -1,5 +1,5 @@
 """
-This module contains the DuckDuckGoSearch (https://duckduckgo.com) video section
+This module contains the DuckDuckGoSearch (https://duckduckgo.com) news section
 page result call.
 """
 
@@ -10,8 +10,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.remote.webdriver import WebDriver
 
-class DuckDuckGoNewsResultPage:
 
+class DuckDuckGoNewsResultPage:
     # Locators:
     NEWS_TAB = (By.CSS_SELECTOR, 'a[data-zci-link="news"]')
     NEWS_8 = (By.CSS_SELECTOR, ':nth-child(8 of div.result--news)')
@@ -32,4 +32,3 @@ class DuckDuckGoNewsResultPage:
 
         # Go back to the NEWS page
         self.browser.back()
-
