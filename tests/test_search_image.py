@@ -1,7 +1,7 @@
 import time
 import pytest
 from pages.search_page import DuckDuckGoSearchPage
-from pages.result_page import DuckDuckGoImageResultPage
+from pages.img_page import DuckDuckGoImageResultPage
 
 
 def test_duckduckgo_image_search(browser):
