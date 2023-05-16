@@ -75,9 +75,11 @@ class DuckDuckGoResultPage:
         # Go back to the page
         self.browser.back()
 
+    '''
     def img_search(self):
         img_result = DuckDuckGoImageResultPage(self.browser)
         img_result.img_search_result()
+    '''
 
     def vid_search(self):
         vid_result = DuckDuckGoVideoResultPage(self.browser)

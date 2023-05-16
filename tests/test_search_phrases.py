@@ -19,7 +19,7 @@ def test_basic_duckduckgo_search(browser):
     # WHEN the user searches for a single "phrase"
     search_page.search_single_phrase(PHRASE)
 
-    # WHEN the user searches for multiple "phrases"
+    # WHEN the user searches for multiple "phrases" - Parametrize
     # search_page.search_multiple_phrases()
 
     # THEN the search result links equals to "panda"
@@ -35,7 +35,7 @@ def test_basic_duckduckgo_search(browser):
     result_page.select_autocomplete_selection()
 
     # AND click on the More Results button
-    # result_page.expand_more_result()
+    result_page.expand_more_result()
 
     # AND click on the Image section
     # result_page.img_search()
