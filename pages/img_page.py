@@ -31,7 +31,7 @@ class DuckDuckGoImageResultPage:
         images_tab = self.browser.find_element(*self.IMAGES_TAB)
         images_tab.send_keys(Keys.RETURN)
 
-        # Check if the images Tab has the is-active class
+        # Check / Verify if the images Tab has the is-active class
         cls_list = images_tab.get_attribute('class')
         assert 'is-active' in cls_list
 
@@ -39,7 +39,7 @@ class DuckDuckGoImageResultPage:
         image_4 = self.browser.find_element(*self.IMAGE_4)
         image_4.click()
 
-        # Check if the image title contains the Phrase
+        # Check / Verify if the image title contains the Phrase
         img_title = self.browser.find_element(*self.IMAGE_TITLE).get_attribute('innerHTML').lower()
         assert phrase.lower() in img_title
 

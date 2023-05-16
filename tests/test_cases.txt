@@ -19,7 +19,7 @@ In this file I'll record all the tests /test cases that I need to implement:
 ----- NEWS -----
 - Assert / Verify if the News tab is selected / currently active
 - Assert / Verify if the News title contains the Phrase
-- Assert / Verify if the News contains the Phrase (Open the page
+- Assert / Verify if the News contains the Phrase (Open the page)
 
 ----- NEWS -----
 

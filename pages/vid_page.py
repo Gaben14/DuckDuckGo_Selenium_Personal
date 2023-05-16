@@ -28,7 +28,7 @@ class DuckDuckGoVideoResultPage:
         videos_tab = self.browser.find_element(*self.VIDEOS_TAB)
         videos_tab.send_keys(Keys.RETURN)
 
-        # Check if the images Tab has the is-active class
+        # Assert / Verify if the images Tab has the is-active class
         cls_list = videos_tab.get_attribute('class')
         assert 'is-active' in cls_list
 
@@ -36,7 +36,7 @@ class DuckDuckGoVideoResultPage:
         video_2 = self.browser.find_element(*self.VIDEO_2)
         video_2.click()
 
-        # Check if the video title contains the Phrase
+        # Assert / Verify if the video title contains the Phrase
         video_title = self.browser.find_element(*self.VIDEO_TITLE).get_attribute('innerHTML').lower()
         assert phrase.lower() in video_title
 
