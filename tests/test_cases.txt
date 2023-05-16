@@ -20,9 +20,10 @@ In this file I'll record all the tests /test cases that I need to implement:
 - Assert / Verify if the News tab is selected / currently active
 - Assert / Verify if the News title contains the Phrase
 - Assert / Verify if the News contains the Phrase (Open the page)
-
 ----- NEWS -----
 
 ----- SETTINGS -----
-- Assert if the flippers are turned on and contain the values
+- Assert if the flippers are turned on
+- Assert that Font Size, Font contains the values
+- Assert that the Language field contains the values
 ----- SETTINGS -----

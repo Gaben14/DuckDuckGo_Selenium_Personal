@@ -36,15 +36,3 @@ def test_basic_duckduckgo_search(browser):
 
     # AND click on the More Results button
     result_page.expand_more_result()
-
-    # AND click on the Image section
-    # result_page.img_search()
-
-    # AND click on the Video section
-    # result_page.vid_search()
-
-    # AND click on the News section
-    # result_page.news_search()
-
-    # AND click on the Settings
-    result_page.change_settings()

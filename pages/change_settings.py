@@ -34,10 +34,14 @@ class DuckDuckGoSettings:
 
         settings_a = self.browser.find_element(*self.SETTINGS)
         settings_a.click()
-        # settings_a.click()
+
         # Change to Dark Mode
         dark_mode = self.browser.find_element(*self.DARK_MODE)
         dark_mode.click()
+
+        # Assert / Verify if the Dark Mode has the is-checked class
+        dark_mode_cls_list = dark_mode.get_attribute('class')
+        assert 'is-checked' in dark_mode_cls_list
 
         # Trigger the "Site Icons" on and off - kf is for Site Icons
         self.flipper_switch('kf')
@@ -65,11 +69,10 @@ class DuckDuckGoSettings:
     def flipper_switch(self, flipper_val):
         flipper = self.browser.find_element(By.CSS_SELECTOR, f'label[for="setting_{flipper_val}"]')
 
-        """
-        action_icons = ActionChains(self.browser)
-        action_icons.double_click(site_icons)
-        action_icons.perform()
-        """
+        # Create a local variable in which you contain the parent's CSS selector 'class="frm__field  fix"'
+
+        # TODO - Assert / Verify if the Parent div with 'class="frm__field  fix"' has the is-checked class
+
         flipper.click()
 
     def dropdown_change(self, select_container, select_val):
@@ -77,10 +80,12 @@ class DuckDuckGoSettings:
         font_sel = self.browser.find_element(By.ID, select_container)
         font_sel.click()
 
+        # TODO - Assert that value has actually changed
+
         font_item = self.browser.find_element(By.CSS_SELECTOR, f'#{select_container} > option[value="{select_val}"]')
         font_item.click()
 
-        # TODO Assert that value has actually changed
+        # TODO -  Assert that value has actually changed
 
     def click_on_reset_btn(self):
         # Click on Reset inside the class: .settings-dropdown--header
@@ -88,6 +93,8 @@ class DuckDuckGoSettings:
 
         for btn in reset_btn:
             btn.click()
+
+        # TODO - Assert if values are back to normal
 
     # Assert For later: Save the values of these settings change, refresh the page.
     # Check if the values are the same ?
@@ -98,6 +105,8 @@ class DuckDuckGoSettings:
         # Select one of the Countries inside the region
         country = self.browser.find_element(By.XPATH, f'//a[text()="{country}"]')
         country.click()
+
+        # TODO - Assert if the country has really changed.
 
         # Reset all settings
         reset_flip = self.browser.find_element(By.CLASS_NAME, 'switch__knob')

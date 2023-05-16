@@ -74,7 +74,3 @@ class DuckDuckGoResultPage:
         third_result.click()
         # Go back to the page
         self.browser.back()
-
-    def change_settings(self):
-        change_duck_settings = DuckDuckGoSettings(self.browser)
-        change_duck_settings.duck_settings("s", "b", "hu_HU", 'Austria')
