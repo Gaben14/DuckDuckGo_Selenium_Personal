@@ -48,5 +48,3 @@ def test_basic_duckduckgo_search(browser):
 
     # AND click on the Settings
     result_page.change_settings()
-
-    time.sleep(5)

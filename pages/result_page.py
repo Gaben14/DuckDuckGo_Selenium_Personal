@@ -33,19 +33,23 @@ class DuckDuckGoResultPage:
 
     def click_on_search_result(self):
         # Select the first result, click on it
-        search_results = self.browser.find_elements(*self.SEARCH_RESULTS)[0].click()
+        search_results = self.browser.find_elements(*self.SEARCH_RESULTS)[0]
+        search_results.click()
+
         # Go back to the result page
         self.browser.back()
 
     def expand_more_result(self):
         # Click on the More Results button
-        more_results_btn = self.browser.find_element(*self.MORE_RESULTS).click()
+        more_results_btn = self.browser.find_element(*self.MORE_RESULTS)
+        more_results_btn.click()
 
     def verify_autocomplete(self):
         # Create the selector for the container of the autocomplete div
         auto_complete_cont = self.browser.find_element(*self.AUTO_COMPLETE_CONT)
         # Click inside the search input field - Here I'm already crossing against DRY, as I'm repeating the selector
-        search_input = self.browser.find_element(*self.SEARCH_INPUT).click()
+        search_input = self.browser.find_element(*self.SEARCH_INPUT)
+        search_input.click()
         search_input_val = self.browser.find_element(*self.SEARCH_INPUT).get_attribute("innerHTML")
         # Search for all the spans with the class 't-normal'
         autocomp_results = self.browser.find_elements(*self.AUTO_COMPLETE_RES)
@@ -62,10 +66,12 @@ class DuckDuckGoResultPage:
         # Create the selector for the container of the autocomplete div
         auto_complete_cont = self.browser.find_element(*self.AUTO_COMPLETE_CONT)
         # Click inside the search input field - Here I'm already crossing against DRY, as I'm repeating the selector
-        search_input = self.browser.find_element(*self.SEARCH_INPUT).click()
+        search_input = self.browser.find_element(*self.SEARCH_INPUT)
+        search_input.click()
 
         # Select the 3rd result and click on it.
-        third_result = self.browser.find_element(By.CSS_SELECTOR, 'div[data-index="3"]').click()
+        third_result = self.browser.find_element(By.CSS_SELECTOR, 'div[data-index="3"]')
+        third_result.click()
         # Go back to the page
         self.browser.back()
 
@@ -83,4 +89,4 @@ class DuckDuckGoResultPage:
 
     def change_settings(self):
         change_duck_settings = DuckDuckGoSettings(self.browser)
-        change_duck_settings.duck_settings("s", "b", "hu_HU")
+        change_duck_settings.duck_settings("s", "b", "hu_HU", 'Austria')

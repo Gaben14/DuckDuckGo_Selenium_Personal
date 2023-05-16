@@ -3,6 +3,7 @@ This module contains the DuckDuckGoSearch (https://duckduckgo.com) settings page
 """
 
 import pytest
+import time
 from selenium.webdriver.common.by import By
 # from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.remote.webdriver import WebDriver
@@ -13,7 +14,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 class DuckDuckGoSettings:
     # Locators:
-    SETTINGS = (By.CSS_SELECTOR, '.dropdown > .zcm__link')
+    SETTINGS = (By.CSS_SELECTOR, 'div.dropdown > a.zcm__link')
     DARK_MODE = (By.CSS_SELECTOR, 'div[data-theme-id="d"]')
 
     FONT_SIZE_SEL = 'setting_ks'
@@ -28,14 +29,12 @@ class DuckDuckGoSettings:
         self.browser = browser
 
     # Interaction Methods:
-    def duck_settings(self, font_size_val, font_fam_val, lang_val):
+    def duck_settings(self, font_size_val, font_fam_val, lang_val, country_val):
         # Click / Open on the Settings <a>
 
-        settings_a = WebDriverWait(self.browser, 15).until(
-            EC.element_to_be_clickable(self.SETTINGS)
-        )
-
+        settings_a = self.browser.find_element(*self.SETTINGS)
         settings_a.click()
+        # settings_a.click()
         # Change to Dark Mode
         dark_mode = self.browser.find_element(*self.DARK_MODE)
         dark_mode.click()
@@ -48,12 +47,20 @@ class DuckDuckGoSettings:
 
         # Language change
         self.dropdown_change("setting_kad", lang_val)
+        # Need to reopen the settings one more time
+        settings_a = WebDriverWait(self.browser, 15).until(
+
+            EC.element_to_be_clickable(self.SETTINGS)
+        )
+        settings_a.click()
         # Turn on "Infinite Scroll" - setting_kav
         self.flipper_switch('kav')
         # Turn on "Open Links in a New Tab" - setting_kn
         self.flipper_switch('kn')
         # Click on Reset buttons.
         self.click_on_reset_btn()
+        # Change region
+        self.change_region(country_val)
 
     def flipper_switch(self, flipper_val):
         flipper = self.browser.find_element(By.CSS_SELECTOR, f'label[for="setting_{flipper_val}"]')
@@ -82,5 +89,16 @@ class DuckDuckGoSettings:
         for btn in reset_btn:
             btn.click()
 
-    # For later: Save the values of these settings change, refresh the page.
-    # Check if the values are the same
+    # Assert For later: Save the values of these settings change, refresh the page.
+    # Check if the values are the same ?
+    def change_region(self, country):
+        region_btn = self.browser.find_element(By.CSS_SELECTOR, '.dropdown--region > a')
+        region_btn.click()
+
+        # Select one of the Countries inside the region
+        country = self.browser.find_element(By.XPATH, f'//a[text()="{country}"]')
+        country.click()
+
+        # Reset all settings
+        reset_flip = self.browser.find_element(By.CLASS_NAME, 'switch__knob')
+        reset_flip.click()
