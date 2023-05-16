@@ -7,7 +7,7 @@ In this file I'll record all the tests /test cases that I need to implement:
 ----- RESULT -----
 
 ----- IMAGE -----
-- Assert / Verify if the Images tab is selected / currently active
+- Assert / Verify if the Images tab is selected / currently active - DONE
 - Assert / Verify if the Image title contains the Phrase
 ----- IMAGE -----
 
