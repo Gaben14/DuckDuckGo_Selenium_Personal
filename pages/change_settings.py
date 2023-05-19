@@ -2,14 +2,10 @@
 This module contains the DuckDuckGoSearch (https://duckduckgo.com) settings page.
 """
 
-import pytest
-import time
 from selenium.webdriver.common.by import By
-# from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-# from selenium.webdriver.common.action_chains import ActionChains
 
 
 class DuckDuckGoSettings:
@@ -21,10 +17,6 @@ class DuckDuckGoSettings:
     FONT_FAMILY_SEL = 'setting_kt'
 
     is_checked = 'is-checked'
-    """
-    The problem here is that we need to close the autocomplete result modal
-    so that we can click on settings
-    """
 
     # Initialize:
     def __init__(self, browser: WebDriver):
@@ -113,14 +105,12 @@ class DuckDuckGoSettings:
         settings_a = self.browser.find_element(*self.SETTINGS)
         settings_a.click()
 
-        light_theme = self.browser.find_element(By.CSS_SELECTOR, 'div[data-theme-id="-1"] > label.set-theme')
-        light_theme_cls_list = light_theme.get_attribute('class')
+        light_theme_cls_list = self.browser.find_element(By.CSS_SELECTOR, 'div[data-theme-id="-1"] > label.set-theme').get_attribute('class')
         assert self.is_checked in light_theme_cls_list
 
         site_icons = self.browser.find_element(By.CSS_SELECTOR, 'label[for="setting_kf"')
-        site_icons_cont_div = site_icons.find_element(By.XPATH, "../..")
-        site_icons_cont_div_cls_list = site_icons_cont_div.get_attribute('class')
-        assert self.is_checked in site_icons_cont_div_cls_list
+        site_icons_cont_div_cls = site_icons.find_element(By.XPATH, "../..").get_attribute('class')
+        assert self.is_checked in site_icons_cont_div_cls
 
         font_size = self.browser.find_element(By.CSS_SELECTOR, f'#setting_ks > option[value="n"]')
         assert font_size.get_attribute('value') == 'n'
@@ -132,14 +122,12 @@ class DuckDuckGoSettings:
         assert language.get_attribute('value') == 'wt_WT'
 
         inf_scroll = self.browser.find_element(By.CSS_SELECTOR, 'label[for="setting_kav"')
-        inf_scroll_cont_div = inf_scroll.find_element(By.XPATH, '../..')
-        inf_scroll_cont_div_cls_list = inf_scroll_cont_div.get_attribute('class')
-        assert self.is_checked not in inf_scroll_cont_div_cls_list
+        inf_scroll_cont_div_cls = inf_scroll.find_element(By.XPATH, '../..').get_attribute('class')
+        assert self.is_checked not in inf_scroll_cont_div_cls
 
         open_new_links = self.browser.find_element(By.CSS_SELECTOR, 'label[for="setting_kn"')
-        open_new_links_cont_div = open_new_links.find_element(By.XPATH, '../..')
-        open_new_links_cont_div_cls_list = open_new_links_cont_div.get_attribute('class')
-        assert self.is_checked not in open_new_links_cont_div_cls_list
+        open_new_links_cont_div_cls = open_new_links.find_element(By.XPATH, '../..').get_attribute('class')
+        assert self.is_checked not in open_new_links_cont_div_cls
 
     # Assert For later: Save the values of these settings change, refresh the page.
     def change_region(self, country):
@@ -150,8 +138,11 @@ class DuckDuckGoSettings:
         country = self.browser.find_element(By.XPATH, f'//a[text()="{country}"]')
         country.click()
 
-        # TODO - Assert if the country has really changed.
+        # Assert / Verify if the country has really changed.
+        country_selector = self.browser.find_element(By.CSS_SELECTOR, 'div.dropdown--region > a').get_attribute('innerHTML')
 
-        # Reset all settings
+        assert country_selector == country
+
+        # Reset Region Settings
         reset_flip = self.browser.find_element(By.CLASS_NAME, 'switch__knob')
         reset_flip.click()
