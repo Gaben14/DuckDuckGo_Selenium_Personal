@@ -1,7 +1,6 @@
 """
 This module contains the DuckDuckGoSearch (https://duckduckgo.com) settings page.
 """
-
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support.ui import WebDriverWait
@@ -19,15 +18,10 @@ class DuckDuckGoSettings:
     is_checked = 'is-checked'
 
     # Initialize:
-    def __init__(self, browser: WebDriver):
+    def __init__(self, browser: WebDriver, font_size_val, font_fam_val, lang_val, country_val):
         self.browser = browser
 
-        # Move all the method calls inside duck_settings to the constructor __init__
-
-    # Interaction Methods:
-    def duck_settings(self, font_size_val, font_fam_val, lang_val, country_val):
         # Click / Open on the Settings <a>
-
         settings_a = self.browser.find_element(*self.SETTINGS)
         settings_a.click()
 
@@ -57,6 +51,7 @@ class DuckDuckGoSettings:
         # Change region
         self.change_region(country_val)
 
+    # Interaction Methods:
     def dark_mode(self):
         # Change to Dark Mode
         dark_mode = self.browser.find_element(*self.DARK_MODE)
@@ -105,7 +100,9 @@ class DuckDuckGoSettings:
         settings_a = self.browser.find_element(*self.SETTINGS)
         settings_a.click()
 
-        light_theme_cls_list = self.browser.find_element(By.CSS_SELECTOR, 'div[data-theme-id="-1"] > label.set-theme').get_attribute('class')
+        light_theme_cls_list = self.browser.find_element(By.CSS_SELECTOR,
+                                                         'div[data-theme-id="-1"] > label.set-theme').get_attribute(
+            'class')
         assert self.is_checked in light_theme_cls_list
 
         site_icons = self.browser.find_element(By.CSS_SELECTOR, 'label[for="setting_kf"')
@@ -135,13 +132,13 @@ class DuckDuckGoSettings:
         region_btn.click()
 
         # Select one of the Countries inside the region
-        country = self.browser.find_element(By.XPATH, f'//a[text()="{country}"]')
-        country.click()
+        country_dropdown_select = self.browser.find_element(By.XPATH, f'//a[text()="{country}"]')
+        country_dropdown_select.click()
 
         # Assert / Verify if the country has really changed.
-        country_selector = self.browser.find_element(By.CSS_SELECTOR, 'div.dropdown--region > a').get_attribute('innerHTML')
-
-        assert country_selector == country
+        selected_country = self.browser.find_element(By.CSS_SELECTOR, 'div.dropdown--region > a').get_attribute(
+            'innerHTML')
+        assert selected_country == country
 
         # Reset Region Settings
         reset_flip = self.browser.find_element(By.CLASS_NAME, 'switch__knob')

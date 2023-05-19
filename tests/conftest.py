@@ -7,6 +7,7 @@ import pytest
 import selenium.webdriver
 from selenium.webdriver.firefox.options import Options
 # For custom firefox configuration.
+from pages.search_page import DuckDuckGoSearchPage
 
 
 @pytest.fixture
@@ -50,3 +51,16 @@ def browser(config):
     # Quit the WebDriver instance for the cleanup:
     driver.quit()
 
+
+@pytest.fixture()
+def open_page(browser):
+    search_page = DuckDuckGoSearchPage(browser)
+
+    # PHRASES to search for - Update to parametrize later!
+    PHRASE = 'panda'
+
+    # GIVEN The DuckDuckGo page is displayed
+    search_page.load()
+
+    # WHEN the user searches for a single "phrase"
+    search_page.search_single_phrase(PHRASE)
