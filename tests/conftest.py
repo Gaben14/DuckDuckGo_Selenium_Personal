@@ -53,14 +53,16 @@ def browser(config):
 
 
 @pytest.fixture()
-def open_page(browser):
-    search_page = DuckDuckGoSearchPage(browser)
+def phrase():
+    return 'panda'
 
-    # PHRASES to search for - Update to parametrize later!
-    PHRASE = 'panda'
+
+@pytest.fixture()
+def open_page(browser, phrase):
+    search_page = DuckDuckGoSearchPage(browser)
 
     # GIVEN The DuckDuckGo page is displayed
     search_page.load()
 
     # WHEN the user searches for a single "phrase"
-    search_page.search_single_phrase(PHRASE)
+    search_page.search_single_phrase(phrase)

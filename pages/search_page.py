@@ -34,13 +34,3 @@ class DuckDuckGoSearchPage:
         # Assert that phrase and the value of the input is the same.
         search_btn = self.browser.find_element(*self.SEARCH_BTN)
         search_btn.click()
-
-    # Multiple phrases
-    phrases = ['panda', 'snake', 'dog']
-
-    @pytest.mark.parametrize('phrase', phrases)
-    def search_multiple_phrases(self, phrase):
-        search_input = self.browser.find_element(*self.SEARCH_INPUT)
-        search_input.send_keys(phrase)
-        search_btn = self.browser.find_element(*self.SEARCH_BTN)
-        search_btn.click()
