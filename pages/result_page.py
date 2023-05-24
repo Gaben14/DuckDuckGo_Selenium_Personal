@@ -18,21 +18,6 @@ class DuckDuckGoResultPage:
         self.browser = browser
         self.phrase = phrase
 
-        # THEN the search result links equals to "panda"
-        self.search_input_value()
-
-        # AND click on the first result
-        self.click_on_search_result()
-
-        # AND verify (assert) that the autocomplete results contain the phrase
-        assert self.verify_autocomplete()
-
-        # AND select an autocomplete result
-        self.select_autocomplete_selection()
-
-        # AND click on the More Results button
-        self.expand_more_result()
-
     # Interaction Methods:
     def search_input_value(self):
         search_input = self.browser.find_element(*self.SEARCH_INPUT)
@@ -79,3 +64,20 @@ class DuckDuckGoResultPage:
         third_result.click()
         # Go back to the page
         self.browser.back()
+
+    # Handler function
+    def search_result(self):
+        # THEN the search result links equals to "panda"
+        self.search_input_value()
+
+        # AND click on the first result
+        self.click_on_search_result()
+
+        # AND verify (assert) that the autocomplete results contain the phrase
+        assert self.verify_autocomplete()
+
+        # AND select an autocomplete result
+        self.select_autocomplete_selection()
+
+        # AND click on the More Results button
+        self.expand_more_result()

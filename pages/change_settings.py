@@ -21,36 +21,6 @@ class DuckDuckGoSettings:
     def __init__(self, browser: WebDriver, font_size_val, font_fam_val, lang_val, country_val):
         self.browser = browser
 
-        # Click / Open on the Settings <a>
-        settings_a = self.browser.find_element(*self.SETTINGS)
-        settings_a.click()
-
-        self.dark_mode()
-
-        self.flipper_switch('kaz')
-        # Trigger the "Site Icons" on and off - kf is for Site Icons
-        self.flipper_switch('kf')
-        # Font changes function call
-        self.dropdown_change(self.FONT_SIZE_SEL, font_size_val)
-        self.dropdown_change(self.FONT_FAMILY_SEL, font_fam_val)
-
-        # Language change
-        self.dropdown_change("setting_kad", lang_val)
-        # Need to reopen the settings one more time
-        settings_a = WebDriverWait(self.browser, 15).until(
-
-            EC.element_to_be_clickable(self.SETTINGS)
-        )
-        settings_a.click()
-        # Turn on "Infinite Scroll" - setting_kav
-        self.flipper_switch('kav')
-        # Turn on "Open Links in a New Tab" - setting_kn
-        self.flipper_switch('kn')
-        # Click on Reset buttons.
-        self.click_on_reset_btn()
-        # Change region
-        self.change_region(country_val)
-
     # Interaction Methods:
     def dark_mode(self):
         # Change to Dark Mode
@@ -143,3 +113,35 @@ class DuckDuckGoSettings:
         # Reset Region Settings
         reset_flip = self.browser.find_element(By.CLASS_NAME, 'switch__knob')
         reset_flip.click()
+
+    # Handler function
+    def duck_settings(self, font_size_val, font_fam_val, lang_val, country_val):
+        # Click / Open on the Settings <a>
+        settings_a = self.browser.find_element(*self.SETTINGS)
+        settings_a.click()
+
+        self.dark_mode()
+
+        self.flipper_switch('kaz')
+        # Trigger the "Site Icons" on and off - kf is for Site Icons
+        self.flipper_switch('kf')
+        # Font changes function call
+        self.dropdown_change(self.FONT_SIZE_SEL, font_size_val)
+        self.dropdown_change(self.FONT_FAMILY_SEL, font_fam_val)
+
+        # Language change
+        self.dropdown_change("setting_kad", lang_val)
+        # Need to reopen the settings one more time
+        settings_a = WebDriverWait(self.browser, 15).until(
+
+            EC.element_to_be_clickable(self.SETTINGS)
+        )
+        settings_a.click()
+        # Turn on "Infinite Scroll" - setting_kav
+        self.flipper_switch('kav')
+        # Turn on "Open Links in a New Tab" - setting_kn
+        self.flipper_switch('kn')
+        # Click on Reset buttons.
+        self.click_on_reset_btn()
+        # Change region
+        self.change_region(country_val)

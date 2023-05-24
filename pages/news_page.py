@@ -17,11 +17,11 @@ class DuckDuckGoNewsResultPage:
     RESULT_PAGE_TITLE = (By.CSS_SELECTOR, '')
 
     # Initialize:
-    def __init__(self, browser: WebDriver, phrase):
+    def __init__(self, browser: WebDriver):
         self.browser = browser
-        self.phrase = phrase
 
-        # Interaction Methods:
+    # Interaction Methods:
+    def news_search_result(self, phrase):
         # Click on the "News" Tab
         news_tab = self.browser.find_element(*self.NEWS_TAB)
         news_tab.click()
@@ -36,7 +36,7 @@ class DuckDuckGoNewsResultPage:
 
         # Assert / Verify if the News title contains the Phrase
         news_title = self.browser.find_element(*self.NEWS_TITLE).get_attribute('innerHTML').lower()
-        assert self.phrase.lower() in news_title
+        assert phrase.lower() in news_title
         # Assert / Verify if the News contains the Phrase (Open the page) - Implement later
         assert phrase in self.browser.page_source
         # Go back to the NEWS page
