@@ -2,10 +2,8 @@
 This module contains the DuckDuckGoSearch (https://duckduckgo.com)
 page call, and entering a search entry inside the search input field.
 """
-import pytest
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium import webdriver
+import requests
 
 
 class DuckDuckGoSearchPage:
@@ -22,15 +20,19 @@ class DuckDuckGoSearchPage:
 
     # Interaction Methods
     def load(self):
+        # GIVEN the user opens the web-page.
         self.browser.get(self.URL)
-        # TODO Assert if the response code is 200 for loading the page
-        # print(self.browser.get(self.URL))
+
+        # THEN Verify / Assert if the response code is 200 for loading the page
+        response = requests.get(self.URL)
+        assert response.status_code == 200
 
     # Single Phrase
     def search_single_phrase(self, phrase):
+        # WHEN the user clicks on the Search bar, clear all previously entered values and enter the user's entry
         search_input = self.browser.find_element(*self.SEARCH_INPUT)
         search_input.clear()
         search_input.send_keys(phrase)
-        # Assert that phrase and the value of the input is the same.
+        # THEN assert / verify that the phrase and the value of the input is the same.
         search_btn = self.browser.find_element(*self.SEARCH_BTN)
         search_btn.click()

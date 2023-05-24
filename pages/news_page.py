@@ -2,10 +2,7 @@
 This module contains the DuckDuckGoSearch (https://duckduckgo.com) news section
 page result call.
 """
-import time
-import pytest
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.remote.webdriver import WebDriver
 
 
@@ -22,22 +19,22 @@ class DuckDuckGoNewsResultPage:
 
     # Interaction Methods:
     def news_search_result(self, phrase):
-        # Click on the "News" Tab
+        # WHEN the user clicks on the "News" Tab
         news_tab = self.browser.find_element(*self.NEWS_TAB)
         news_tab.click()
 
-        # Assert / Verify if the "News" Tab has the is-active class
+        # THEN assert / verify if the "News" Tab has the is-active class
         cls_list = news_tab.get_attribute('class')
         assert 'is-active' in cls_list
 
-        # Open the 8th News Article
+        # AND open the 8th News Article
         news_8 = self.browser.find_element(*self.NEWS_8)
         news_8.click()
 
-        # Assert / Verify if the News title contains the Phrase
+        # AND assert / verify if the News title contains the Phrase
         news_title = self.browser.find_element(*self.NEWS_TITLE).get_attribute('innerHTML').lower()
         assert phrase.lower() in news_title
-        # Assert / Verify if the News contains the Phrase (Open the page) - Implement later
+        # AND assert / verify if the News contains the Phrase (Open the page) - Implement later
         assert phrase in self.browser.page_source
         # Go back to the NEWS page
         self.browser.back()

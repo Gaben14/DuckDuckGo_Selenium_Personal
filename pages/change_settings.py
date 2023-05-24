@@ -23,31 +23,32 @@ class DuckDuckGoSettings:
 
     # Interaction Methods:
     def dark_mode(self):
-        # Change to Dark Mode
+        # WHEN the user click on the Dark Mode button (Change to Dark Mode)
         dark_mode = self.browser.find_element(*self.DARK_MODE)
         dark_mode.click()
 
-        # Assert / Verify if the Dark Mode has the is-checked class
+        # THEN assert / verify if the page has changed to Dark Mode (has the is-checked class)
         dark_mode_cls_list = dark_mode.get_attribute('class')
         assert self.is_checked in dark_mode_cls_list
 
     def flipper_switch(self, flipper_val):
-
+        # WHEN the user clicks on the flipper
         flipper = self.browser.find_element(By.CSS_SELECTOR, f'label[for="setting_{flipper_val}"]')
         flipper.click()
 
         # Create a local variable in which you contain the parent's CSS selector 'class="frm__field  fix"'
+        # and it's class list
         container_div = flipper.find_element(By.XPATH, '../..')
-        # Assert / Verify if the Parent div with 'class="frm__field  fix"' has the is-checked class
         container_div_cls_list = container_div.get_attribute('class')
 
+        # THEN assert / verify if the Parent div with 'class="frm__field  fix"' has the is-checked class
         if self.is_checked in container_div_cls_list:
             assert self.is_checked in container_div_cls_list
         else:
             assert self.is_checked not in container_div_cls_list
 
     def dropdown_change(self, select_container, select_val):
-        # Change the Font Size or Font-Family depending on the parameter
+        # GIVEN the user changes the Font Size or Font-Family depending on the parameter
         sel_container = self.browser.find_element(By.ID, select_container)
         sel_container.click()
 
@@ -55,11 +56,11 @@ class DuckDuckGoSettings:
         sel_option_value = sel_option.get_attribute('value')
         sel_option.click()
 
-        # Assert / Verify that value has actually changed
+        # THEN assert / verify that the value has actually changed
         assert sel_option_value == select_val
 
     def click_on_reset_btn(self):
-        # Click on Reset inside the class: .settings-dropdown--header
+        # WHEN the user clicks on the Reset inside the class: .settings-dropdown--header
         reset_btn = self.browser.find_elements(By.CSS_SELECTOR, '.settings-dropdown--header > a')
 
         for btn in reset_btn:
@@ -73,6 +74,7 @@ class DuckDuckGoSettings:
         light_theme_cls_list = self.browser.find_element(By.CSS_SELECTOR,
                                                          'div[data-theme-id="-1"] > label.set-theme').get_attribute(
             'class')
+        # THEN assert / verify is every value is set back to default.
         assert self.is_checked in light_theme_cls_list
 
         site_icons = self.browser.find_element(By.CSS_SELECTOR, 'label[for="setting_kf"')
@@ -98,24 +100,25 @@ class DuckDuckGoSettings:
 
     # Assert For later: Save the values of these settings change, refresh the page.
     def change_region(self, country):
+        # WHEN the user clicks on the region button
         region_btn = self.browser.find_element(By.CSS_SELECTOR, '.dropdown--region > a')
         region_btn.click()
 
-        # Select one of the Countries inside the region
+        # AND select one of the Countries inside the region
         country_dropdown_select = self.browser.find_element(By.XPATH, f'//a[text()="{country}"]')
         country_dropdown_select.click()
 
-        # Assert / Verify if the country has really changed.
+        # THEN assert / verify if the country has really changed.
         selected_country = self.browser.find_element(By.CSS_SELECTOR, 'div.dropdown--region > a').get_attribute(
             'innerHTML')
         assert selected_country == country
 
-        # Reset Region Settings
+        # AND reset Region Settings
         reset_flip = self.browser.find_element(By.CLASS_NAME, 'switch__knob')
         reset_flip.click()
 
     # Handler function
-    def duck_settings(self, font_size_val, font_fam_val, lang_val, country_val):
+    def change_duck_settings(self, font_size_val, font_fam_val, lang_val, country_val):
         # Click / Open on the Settings <a>
         settings_a = self.browser.find_element(*self.SETTINGS)
         settings_a.click()

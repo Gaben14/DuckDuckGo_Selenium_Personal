@@ -1,14 +1,7 @@
 """
 This module contains the DuckDuckGoSearch (https://duckduckgo.com) images section
 page result call.
-
-TODO - Should I convert this class to a child class?
-(Parent should be the DuckDuckGoResultPage?)
 """
-
-import time
-
-import pytest
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.remote.webdriver import WebDriver
@@ -27,22 +20,22 @@ class DuckDuckGoImageResultPage:
 
     # Interaction Methods:
     def img_search_result(self, phrase):
-        # Click on the images Tab, a: contains text "Images"
+        # WHEN the user clicks on the images Tab, a: contains text "Images"
         images_tab = self.browser.find_element(*self.IMAGES_TAB)
         images_tab.send_keys(Keys.RETURN)
 
-        # Check / Verify if the images Tab has the is-active class
+        # THEN check / verify if the images Tab has the is-active class
         cls_list = images_tab.get_attribute('class')
         assert 'is-active' in cls_list
 
-        # Select the 4th image class: tile--img
+        # AND select the 4th image class: tile--img
         image_4 = self.browser.find_element(*self.IMAGE_4)
         image_4.click()
 
-        # Check / Verify if the image title contains the Phrase
+        # AND check / verify if the image title contains the Phrase
         img_title = self.browser.find_element(*self.IMAGE_TITLE).get_attribute('innerHTML').lower()
         assert phrase.lower() in img_title
 
-        # Click on the X icon - class: js-detail-close or detail__close
+        # AND the user clicks on the X icon
         close_icon = self.browser.find_element(*self.CLOSE_ICON)
         close_icon.click()
