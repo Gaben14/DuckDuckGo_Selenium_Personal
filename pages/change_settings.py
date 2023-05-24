@@ -18,7 +18,7 @@ class DuckDuckGoSettings:
     is_checked = 'is-checked'
 
     # Initialize:
-    def __init__(self, browser: WebDriver, font_size_val, font_fam_val, lang_val, country_val):
+    def __init__(self, browser: WebDriver):
         self.browser = browser
 
     # Interaction Methods:
@@ -66,7 +66,7 @@ class DuckDuckGoSettings:
         for btn in reset_btn:
             btn.click()
 
-        # TODO - Assert if values are back to normal
+        # THEN assert / verify if values are back to normal
         # Create the values - Open the menu for the second check
         settings_a = self.browser.find_element(*self.SETTINGS)
         settings_a.click()
