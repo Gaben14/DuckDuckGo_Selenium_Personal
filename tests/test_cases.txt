@@ -1,0 +1,29 @@
+In this file I'll record all the tests /test cases that I need to implement:
+
+----- RESULT -----
+- Assert / Verify if the phrase is the same as in the input field
+- Assert / Verify if each autocomplete suggestion contains the Phrase
+
+----- RESULT -----
+
+----- IMAGE -----
+- Assert / Verify if the Images tab is selected / currently active - DONE
+- Assert / Verify if the Image title contains the Phrase
+----- IMAGE -----
+
+----- VIDEO -----
+- Assert / Verify if the Video tab is selected / currently active
+- Assert / Verify if the Video title contains the Phrase
+----- VIDEO -----
+
+----- NEWS -----
+- Assert / Verify if the News tab is selected / currently active
+- Assert / Verify if the News title contains the Phrase
+- Assert / Verify if the News contains the Phrase (Open the page)
+----- NEWS -----
+
+----- SETTINGS -----
+- Assert if the flippers are turned on
+- Assert that Font Size, Font contains the values
+- Assert that the Language field contains the values
+----- SETTINGS -----
