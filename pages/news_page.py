@@ -18,26 +18,35 @@ class DuckDuckGoNewsResultPage:
         self.browser = browser
 
     # Interaction Methods:
-    def news_search_result(self, phrase):
-        # WHEN the user clicks on the "News" Tab
+    def when_news_tab_click(self):
         news_tab = self.browser.find_element(*self.NEWS_TAB)
         news_tab.click()
 
-        # THEN assert / verify if the "News" Tab has the is-active class
         cls_list = news_tab.get_attribute('class')
+        return cls_list
+
+    def then_assert_news_cls_list(self, cls_list):
         assert 'is-active' in cls_list
 
+    def then_assert_news_title(self, phrase):
+        # AND assert / verify if the News title contains the Phrase
+        news_title = self.browser.find_element(*self.NEWS_TITLE).get_attribute('innerHTML').lower()
+        assert phrase.lower() in news_title
+
+    def then_assert_news_contains_phrase(self, phrase):
         # AND open the 8th News Article
         news_8 = self.browser.find_element(*self.NEWS_8)
         news_8.click()
 
-        # AND assert / verify if the News title contains the Phrase
-        news_title = self.browser.find_element(*self.NEWS_TITLE).get_attribute('innerHTML').lower()
-        assert phrase.lower() in news_title
-        # AND assert / verify if the News contains the Phrase (Open the page) - Implement later
+        # AND assert / verify if the News contains the Phrase (Open the page)
         assert phrase in self.browser.page_source
+
         # Go back to the NEWS page
         self.browser.back()
+
+
+
+
 
 
 
