@@ -22,16 +22,24 @@ class DuckDuckGoSettings:
         self.browser = browser
 
     # Interaction Methods:
-    def dark_mode(self):
-        # WHEN the user click on the Dark Mode button (Change to Dark Mode)
+    def open_menu(self):
+        # Click / Open on the Settings <a>
+        settings_a = self.browser.find_element(*self.SETTINGS)
+        settings_a.click()
+
+    def when_dark_mode_click(self):
+        # WHEN the user clicks on the Dark Mode button (Change to Dark Mode)
         dark_mode = self.browser.find_element(*self.DARK_MODE)
         dark_mode.click()
 
-        # THEN assert / verify if the page has changed to Dark Mode (has the is-checked class)
         dark_mode_cls_list = dark_mode.get_attribute('class')
-        assert self.is_checked in dark_mode_cls_list
+        return dark_mode_cls_list
 
-    def flipper_switch(self, flipper_val):
+    # Maybe we can remove this method and have only one cls list assert
+    def then_assert_dark_mode_cls_list(self, cls_list):
+        assert self.is_checked in cls_list
+
+    def when_flipper_switch_click(self, flipper_val):
         # WHEN the user clicks on the flipper
         flipper = self.browser.find_element(By.CSS_SELECTOR, f'label[for="setting_{flipper_val}"]')
         flipper.click()
@@ -41,23 +49,31 @@ class DuckDuckGoSettings:
         container_div = flipper.find_element(By.XPATH, '../..')
         container_div_cls_list = container_div.get_attribute('class')
 
+        return container_div_cls_list
+
+    def then_assert_cls_flipper_list(self, cls_list):
         # THEN assert / verify if the Parent div with 'class="frm__field  fix"' has the is-checked class
-        if self.is_checked in container_div_cls_list:
-            assert self.is_checked in container_div_cls_list
+        if self.is_checked in cls_list:
+            assert self.is_checked in cls_list
         else:
-            assert self.is_checked not in container_div_cls_list
+            assert self.is_checked not in cls_list
 
-    def dropdown_change(self, select_container, select_val):
-        # GIVEN the user changes the Font Size or Font-Family depending on the parameter
-        sel_container = self.browser.find_element(By.ID, select_container)
-        sel_container.click()
+    def when_dropdown_change(self, container_name, option_value):
+        # WHEN the user changes the Font Size or Font-Family depending on the parameter
+        select_container = self.browser.find_element(By.ID, f'setting_{container_name}')
+        select_container.click()
 
-        sel_option = self.browser.find_element(By.CSS_SELECTOR, f'#{select_container} > option[value="{select_val}"]')
-        sel_option_value = sel_option.get_attribute('value')
-        sel_option.click()
+        select_option = self.browser.find_element(By.CSS_SELECTOR, f'option[value="{option_value}"]')
+        select_option.click()
 
+        # Get the currently selected item's value inside the select container
+        select_container_value = (select_container.get_attribute('value'))
+
+        return [option_value, select_container_value]
+
+    def then_assert_dropdown_value(self, select_list):
         # THEN assert / verify that the value has actually changed
-        assert sel_option_value == select_val
+        assert select_list[0] == select_list[1]
 
     def click_on_reset_btn(self):
         # WHEN the user clicks on the Reset inside the class: .settings-dropdown--header
