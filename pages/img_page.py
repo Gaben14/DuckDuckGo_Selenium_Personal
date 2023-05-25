@@ -19,15 +19,17 @@ class DuckDuckGoImageResultPage:
         self.browser = browser
 
     # Interaction Methods:
-    def img_search_result(self, phrase):
-        # WHEN the user clicks on the images Tab, a: contains text "Images"
+    def when_img_tab_click(self):
         images_tab = self.browser.find_element(*self.IMAGES_TAB)
         images_tab.send_keys(Keys.RETURN)
 
-        # THEN check / verify if the images Tab has the is-active class
         cls_list = images_tab.get_attribute('class')
+        return cls_list
+
+    def then_assert_img_cls_list(self, cls_list):
         assert 'is-active' in cls_list
 
+    def then_assert_img_title(self, phrase):
         # AND select the 4th image class: tile--img
         image_4 = self.browser.find_element(*self.IMAGE_4)
         image_4.click()
@@ -36,6 +38,7 @@ class DuckDuckGoImageResultPage:
         img_title = self.browser.find_element(*self.IMAGE_TITLE).get_attribute('innerHTML').lower()
         assert phrase.lower() in img_title
 
-        # AND the user clicks on the X icon
+    # AND the user clicks on the X icon
+    def close(self):
         close_icon = self.browser.find_element(*self.CLOSE_ICON)
         close_icon.click()

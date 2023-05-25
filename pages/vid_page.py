@@ -19,15 +19,17 @@ class DuckDuckGoVideoResultPage:
         self.browser = browser
 
     # Interaction Methods
-    def vid_search_result(self, phrase):
-        # WHEN the user clicks on the "Videos" link
+    def when_vid_tab_click(self):
         videos_tab = self.browser.find_element(*self.VIDEOS_TAB)
         videos_tab.send_keys(Keys.RETURN)
 
-        # THEN assert / verify if the images Tab has the is-active class
-        cls_list = videos_tab.get_attribute('class')
+        vid_cls_list = videos_tab.get_attribute('class')
+        return vid_cls_list
+
+    def then_assert_vid_cls_list(self, cls_list):
         assert 'is-active' in cls_list
 
+    def then_assert_vid_title(self, phrase):
         # AND select the 2nd video class: tile--img
         video_2 = self.browser.find_element(*self.VIDEO_2)
         video_2.click()
@@ -36,8 +38,8 @@ class DuckDuckGoVideoResultPage:
         video_title = self.browser.find_element(*self.VIDEO_TITLE).get_attribute('innerHTML').lower()
         assert phrase.lower() in video_title
 
+    def close(self):
         # AND the user clicks on the X icon - class: js-detail-close or detail__close
         close_icon = self.browser.find_element(*self.CLOSE_ICON)
         # Sometimes there are two occurrences of the close icon when using videos, the second 1 is the one we need.
         close_icon.click()
-
