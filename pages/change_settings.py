@@ -134,6 +134,7 @@ class DuckDuckGoSettings:
         reset_flip.click()
 
     # Handler function
+    """
     def change_duck_settings(self, font_size_val, font_fam_val, lang_val, country_val):
         # Click / Open on the Settings <a>
         settings_a = self.browser.find_element(*self.SETTINGS)
@@ -164,3 +165,5 @@ class DuckDuckGoSettings:
         self.click_on_reset_btn()
         # Change region
         self.change_region(country_val)
+        
+    """
