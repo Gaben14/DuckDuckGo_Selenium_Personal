@@ -1,4 +1,4 @@
-from pages.news_page import DuckDuckGoNewsResultPage
+from pages.old_files.news_page import DuckDuckGoNewsResultPage
 
 
 def test_duckduckgo_news_search(browser, open_page, phrase):

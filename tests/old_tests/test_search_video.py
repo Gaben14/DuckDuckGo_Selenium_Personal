@@ -1,4 +1,4 @@
-from pages.vid_page import DuckDuckGoVideoResultPage
+from pages.old_files.vid_page import DuckDuckGoVideoResultPage
 
 
 def test_duckduckgo_video_search(browser, open_page, phrase):

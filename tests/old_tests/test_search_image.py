@@ -1,4 +1,4 @@
-from pages.img_page import DuckDuckGoImageResultPage
+from pages.old_files.img_page import DuckDuckGoImageResultPage
 
 
 def test_duckduckgo_image_search(browser, open_page, phrase):
